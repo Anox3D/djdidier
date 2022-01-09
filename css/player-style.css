@@ -1,0 +1,12 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    font-family: 'Arial', sans-serif;
+    text-shadow: 0 0 5px black;
+    text-overflow: ellipsis;
+    color: white;
+    margin: 5px;
+}

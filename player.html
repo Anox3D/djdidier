@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Title -->
+        <title>DJ Didier - </title>
+        <!-- Styles -->
+        <link href="/css/main-style.css" rel="stylesheet">
+        <link href="/css/player-style.css" rel="stylesheet">
+        <!-- Open Graph Protocol -->
+    </head>
+    <body>
+        <h1 id="header"></h1>
+        <audio id="audio" src="" autoplay controls></audio>
+
+        <!-- Script -->
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id').toString();
+
+            const request = new XMLHttpRequest();
+
+            request.open('GET', '/db/songs-db.json');
+            request.responseType = 'json';
+            request.send();
+            request.onload = function(){
+                const songs = request.response;
+
+                changeTitle(songs);
+                changeHeader(songs);
+                changeBackgroundImage(songs);
+                changeAudioSource(songs);
+            }
+
+            function changeTitle(songs){
+                document.title = "DJ Didier - " + songs[id]["name"];
+            }
+
+            function changeHeader(songs){
+                document.getElementById('header').innerText = songs[id]["name"];
+            }
+
+            function changeAudioSource(songs){
+                document.getElementById('audio').setAttribute('src', '/audio/songs/' + songs[id]["audioFile"]);
+            }
+
+            function changeBackgroundImage(songs){
+                document.body.style.backgroundImage = `url("/images/artworks/${songs[id]["artworkFile"]}")`;
+            }
+        </script>
+    </body>
+</html>
